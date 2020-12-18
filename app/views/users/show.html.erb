@@ -6,6 +6,17 @@
   <div class="row">
     <div class="col-md-3">
       <%= render 'users/info', user: @user %>
+      <% unless @user == current_user %>
+        <% if current_user.following?(@user) %>
+          <%= link_to unfollow_path(@user.id), method: :POST, class:"btn btn-sm btn-danger" do %>
+          フォローを外す
+          <% end %>
+        <% else %>
+          <%= link_to follow_path(@user.id), method: :POST, class:"btn btn-sm btn-success" do %>
+          フォローする
+          <% end %>
+        <% end %>
+      <% end %>
       <%= render 'books/newform', book: @book %>
     </div>
     <div class="col-md-8 offset-md-1">
